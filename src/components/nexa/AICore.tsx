@@ -42,7 +42,7 @@ function Core({ quality }: { quality: number }) {
         <meshStandardMaterial
           color={TEAL}
           emissive={TEAL}
-          emissiveIntensity={0.75}
+          emissiveIntensity={1.1}
           roughness={0.25}
           metalness={0.1}
         />
@@ -50,7 +50,7 @@ function Core({ quality }: { quality: number }) {
 
       <mesh scale={1.12}>
         <icosahedronGeometry args={[0.62, 2]} />
-        <meshBasicMaterial color={TEAL} transparent opacity={0.07} />
+        <meshBasicMaterial color={TEAL} transparent opacity={0.1} />
       </mesh>
 
       <mesh ref={shellA}>
@@ -72,7 +72,7 @@ function Core({ quality }: { quality: number }) {
         <meshBasicMaterial color={VIOLET} wireframe transparent opacity={0.16} />
       </mesh>
 
-      <pointLight color={TEAL} intensity={5} distance={8} />
+      <pointLight color={TEAL} intensity={7} distance={8} />
     </group>
   );
 }
