@@ -48,6 +48,8 @@ export function Scene3D({ className }: { className?: string }) {
 
   useEffect(() => {
     if (reduced || !supportsWebGL()) return;
+    // Phones get the CSS stand-in: cheaper, and it keeps hero text readable.
+    if (window.matchMedia("(max-width: 640px)").matches) return;
     const el = host.current;
     if (!el) return;
     const io = new IntersectionObserver((entries) => {
