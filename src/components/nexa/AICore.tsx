@@ -42,7 +42,7 @@ function Core({ quality }: { quality: number }) {
         <meshStandardMaterial
           color={TEAL}
           emissive={TEAL}
-          emissiveIntensity={1.5}
+          emissiveIntensity={0.75}
           roughness={0.25}
           metalness={0.1}
         />
@@ -50,7 +50,7 @@ function Core({ quality }: { quality: number }) {
 
       <mesh scale={1.12}>
         <icosahedronGeometry args={[0.62, 2]} />
-        <meshBasicMaterial color={TEAL} transparent opacity={0.12} />
+        <meshBasicMaterial color={TEAL} transparent opacity={0.07} />
       </mesh>
 
       <mesh ref={shellA}>
@@ -58,7 +58,7 @@ function Core({ quality }: { quality: number }) {
         <meshPhysicalMaterial
           color={"#9fd9ff"}
           transparent
-          opacity={0.14}
+          opacity={0.07}
           roughness={0.08}
           metalness={0.2}
           transmission={0.6}
@@ -72,7 +72,7 @@ function Core({ quality }: { quality: number }) {
         <meshBasicMaterial color={VIOLET} wireframe transparent opacity={0.16} />
       </mesh>
 
-      <pointLight color={TEAL} intensity={9} distance={8} />
+      <pointLight color={TEAL} intensity={5} distance={8} />
     </group>
   );
 }
@@ -146,7 +146,7 @@ function Particles({ count }: { count: number }) {
         size={0.028}
         color={"#bcd8ff"}
         transparent
-        opacity={0.6}
+        opacity={0.4}
         sizeAttenuation
         depthWrite={false}
       />
@@ -214,7 +214,7 @@ function Rig({ children, intensity }: { children: React.ReactNode; intensity: nu
       group.current.rotation.x = damp(group.current.rotation.x, -py * 0.32 + scrollNorm * 0.4, 3, dt);
       group.current.position.y = damp(
         group.current.position.y,
-        Math.sin(t * 0.5) * 0.12 - scrollNorm * 1.2,
+        -1.15 + Math.sin(t * 0.5) * 0.12 - scrollNorm * 1.2,
         2.5,
         dt,
       );
@@ -237,7 +237,7 @@ export default function AICore({ lowPower = false }: { lowPower?: boolean }) {
   return (
     <Canvas
       dpr={lowPower ? [1, 1.25] : [1, 1.75]}
-      camera={{ position: [0, 0.2, 7], fov: 45 }}
+      camera={{ position: [0, 0.6, 9], fov: 45 }}
       gl={{ antialias: !lowPower, powerPreference: "high-performance", alpha: true }}
       frameloop="always"
       style={{ pointerEvents: "none" }}

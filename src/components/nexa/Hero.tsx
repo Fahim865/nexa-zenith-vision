@@ -20,6 +20,14 @@ export function Hero() {
       <Scene3D className="absolute inset-0 -z-10 h-full w-full" />
       <div
         aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-1/3 h-[36rem] w-[52rem] -translate-x-1/2 -translate-y-1/3 rounded-full blur-2xl"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, color-mix(in oklab, var(--background) 78%, transparent), transparent 70%)",
+        }}
+      />
+      <div
+        aria-hidden="true"
         className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background"
       />
 
