@@ -435,7 +435,7 @@ export const SOON_TOOLS: ToolMeta[] = GROUPS.flatMap((g) =>
       tags: name.toLowerCase().split(/\s+/).filter((w) => w !== "ai"),
       status: "soon",
       credits: g.credits,
-      premium: g.premium,
+      ...(g.premium ? { premium: true as const } : {}),
       inputType: g.inputType,
       outputType: g.outputType,
       provider: "server",
