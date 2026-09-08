@@ -238,7 +238,7 @@ function Countdown() {
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_280px]">
       <div className="space-y-5">
-        <Dial label="Countdown" value={mmss(left)} sub={left === 0 ? "Time's up" : undefined} />
+        <Dial label="Countdown" value={mmss(left)} {...(left === 0 ? { sub: "Time's up" } : {})} />
         <div className="flex justify-center gap-2">
           <Button onClick={() => setRunning((r) => !r)} disabled={left === 0 && !running}>
             {running ? "Pause" : "Start"}
