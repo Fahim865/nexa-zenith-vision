@@ -29,14 +29,12 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [credits, setCredits] = useState(100);
-
   return (
     <div className="relative min-h-screen">
-      <Navbar credits={credits} />
+      <Navbar />
       <main>
         <Hero />
-        <ToolsSection onSpend={() => setCredits((c) => Math.max(0, c - 1))} />
+        <Discovery />
         <Pricing />
         <About />
       </main>
