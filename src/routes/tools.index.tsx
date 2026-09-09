@@ -59,7 +59,7 @@ function ToolsIndex() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search tools — try compress, convert, password…"
-            aria-label="Search tools"
+            aria-label="Search all tools"
             className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground/70"
           />
           <button
