@@ -10,7 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CategorySlugRouteImport } from './routes/category.$slug'
+import { Route as ToolsIndexRouteImport } from './routes/tools.index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -18,9 +21,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CategoriesRoute = CategoriesRouteImport.update({
+  id: '/categories',
+  path: '/categories',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategorySlugRoute = CategorySlugRouteImport.update({
+  id: '/category/$slug',
+  path: '/category/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsIndexRoute = ToolsIndexRouteImport.update({
+  id: '/tools/',
+  path: '/tools/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ToolsSlugRoute = ToolsSlugRouteImport.update({
@@ -31,32 +49,63 @@ const ToolsSlugRoute = ToolsSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/categories': typeof CategoriesRoute
   '/dashboard': typeof DashboardRoute
+  '/category/$slug': typeof CategorySlugRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/tools/': typeof ToolsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/categories': typeof CategoriesRoute
   '/dashboard': typeof DashboardRoute
+  '/category/$slug': typeof CategorySlugRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/tools': typeof ToolsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/categories': typeof CategoriesRoute
   '/dashboard': typeof DashboardRoute
+  '/category/$slug': typeof CategorySlugRoute
   '/tools/$slug': typeof ToolsSlugRoute
+  '/tools/': typeof ToolsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/tools/$slug'
+  fullPaths:
+    | '/'
+    | '/categories'
+    | '/dashboard'
+    | '/category/$slug'
+    | '/tools/$slug'
+    | '/tools/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/tools/$slug'
-  id: '__root__' | '/' | '/dashboard' | '/tools/$slug'
+  to:
+    | '/'
+    | '/categories'
+    | '/dashboard'
+    | '/category/$slug'
+    | '/tools/$slug'
+    | '/tools'
+  id:
+    | '__root__'
+    | '/'
+    | '/categories'
+    | '/dashboard'
+    | '/category/$slug'
+    | '/tools/$slug'
+    | '/tools/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CategoriesRoute: typeof CategoriesRoute
   DashboardRoute: typeof DashboardRoute
+  CategorySlugRoute: typeof CategorySlugRoute
   ToolsSlugRoute: typeof ToolsSlugRoute
+  ToolsIndexRoute: typeof ToolsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -68,11 +117,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/categories': {
+      id: '/categories'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof CategoriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/category/$slug': {
+      id: '/category/$slug'
+      path: '/category/$slug'
+      fullPath: '/category/$slug'
+      preLoaderRoute: typeof CategorySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools/': {
+      id: '/tools/'
+      path: '/tools'
+      fullPath: '/tools/'
+      preLoaderRoute: typeof ToolsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tools/$slug': {
@@ -87,8 +157,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CategoriesRoute: CategoriesRoute,
   DashboardRoute: DashboardRoute,
+  CategorySlugRoute: CategorySlugRoute,
   ToolsSlugRoute: ToolsSlugRoute,
+  ToolsIndexRoute: ToolsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

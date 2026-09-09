@@ -1,8 +1,7 @@
-import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/nexa/Navbar";
 import { Hero } from "@/components/nexa/Hero";
-import { ToolsSection } from "@/components/nexa/ToolsSection";
+import { Discovery } from "@/components/tools/Discovery";
 import { Pricing } from "@/components/nexa/Pricing";
 import { About } from "@/components/nexa/About";
 import { Footer } from "@/components/nexa/Footer";
@@ -30,14 +29,12 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const [credits, setCredits] = useState(100);
-
   return (
     <div className="relative min-h-screen">
-      <Navbar credits={credits} />
+      <Navbar />
       <main>
         <Hero />
-        <ToolsSection onSpend={() => setCredits((c) => Math.max(0, c - 1))} />
+        <Discovery />
         <Pricing />
         <About />
       </main>
