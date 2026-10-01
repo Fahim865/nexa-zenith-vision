@@ -106,7 +106,13 @@ export type Database = {
       }
       refund_run: { Args: { _run: string }; Returns: undefined }
       spend_credits: {
-        Args: { _amount: number; _input: string; _kind: string; _tool: string }
+        Args: {
+          _amount: number
+          _input: string
+          _kind: string
+          _tool: string
+          _uid: string
+        }
         Returns: string
       }
     }
