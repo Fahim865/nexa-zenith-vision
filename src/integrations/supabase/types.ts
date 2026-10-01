@@ -14,13 +14,101 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ai_runs: {
+        Row: {
+          created_at: string
+          credits: number
+          id: string
+          input: string | null
+          kind: string
+          output: string | null
+          tool_slug: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          credits?: number
+          id?: string
+          input?: string | null
+          kind?: string
+          output?: string | null
+          tool_slug: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          credits?: number
+          id?: string
+          input?: string | null
+          kind?: string
+          output?: string | null
+          tool_slug?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      conversations: {
+        Row: {
+          created_at: string
+          id: string
+          messages: Json
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          messages?: Json
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          messages?: Json
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          credits: number
+          display_name: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          credits?: number
+          display_name?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string
+          credits?: number
+          display_name?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      finish_run: {
+        Args: { _output: string; _run: string }
+        Returns: undefined
+      }
+      refund_run: { Args: { _run: string }; Returns: undefined }
+      spend_credits: {
+        Args: { _amount: number; _input: string; _kind: string; _tool: string }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
