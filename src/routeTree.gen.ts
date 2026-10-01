@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ApiAiToolRouteImport } from './routes/api/ai-tool'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as CategorySlugRouteImport } from './routes/category.$slug'
 import { Route as ToolsIndexRouteImport } from './routes/tools.index'
 import { Route as ToolsSlugRouteImport } from './routes/tools.$slug'
@@ -29,6 +31,16 @@ const CategoriesRoute = CategoriesRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAiToolRoute = ApiAiToolRouteImport.update({
+  id: '/api/ai-tool',
+  path: '/api/ai-tool',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CategorySlugRoute = CategorySlugRouteImport.update({
@@ -51,6 +63,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/categories': typeof CategoriesRoute
   '/dashboard': typeof DashboardRoute
+  '/api/ai-tool': typeof ApiAiToolRoute
+  '/api/chat': typeof ApiChatRoute
   '/category/$slug': typeof CategorySlugRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/tools/': typeof ToolsIndexRoute
@@ -59,6 +73,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/categories': typeof CategoriesRoute
   '/dashboard': typeof DashboardRoute
+  '/api/ai-tool': typeof ApiAiToolRoute
+  '/api/chat': typeof ApiChatRoute
   '/category/$slug': typeof CategorySlugRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/tools': typeof ToolsIndexRoute
@@ -68,6 +84,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/categories': typeof CategoriesRoute
   '/dashboard': typeof DashboardRoute
+  '/api/ai-tool': typeof ApiAiToolRoute
+  '/api/chat': typeof ApiChatRoute
   '/category/$slug': typeof CategorySlugRoute
   '/tools/$slug': typeof ToolsSlugRoute
   '/tools/': typeof ToolsIndexRoute
@@ -78,6 +96,8 @@ export interface FileRouteTypes {
     | '/'
     | '/categories'
     | '/dashboard'
+    | '/api/ai-tool'
+    | '/api/chat'
     | '/category/$slug'
     | '/tools/$slug'
     | '/tools/'
@@ -86,6 +106,8 @@ export interface FileRouteTypes {
     | '/'
     | '/categories'
     | '/dashboard'
+    | '/api/ai-tool'
+    | '/api/chat'
     | '/category/$slug'
     | '/tools/$slug'
     | '/tools'
@@ -94,6 +116,8 @@ export interface FileRouteTypes {
     | '/'
     | '/categories'
     | '/dashboard'
+    | '/api/ai-tool'
+    | '/api/chat'
     | '/category/$slug'
     | '/tools/$slug'
     | '/tools/'
@@ -103,6 +127,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CategoriesRoute: typeof CategoriesRoute
   DashboardRoute: typeof DashboardRoute
+  ApiAiToolRoute: typeof ApiAiToolRoute
+  ApiChatRoute: typeof ApiChatRoute
   CategorySlugRoute: typeof CategorySlugRoute
   ToolsSlugRoute: typeof ToolsSlugRoute
   ToolsIndexRoute: typeof ToolsIndexRoute
@@ -129,6 +155,20 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/ai-tool': {
+      id: '/api/ai-tool'
+      path: '/api/ai-tool'
+      fullPath: '/api/ai-tool'
+      preLoaderRoute: typeof ApiAiToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/category/$slug': {
@@ -159,6 +199,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CategoriesRoute: CategoriesRoute,
   DashboardRoute: DashboardRoute,
+  ApiAiToolRoute: ApiAiToolRoute,
+  ApiChatRoute: ApiChatRoute,
   CategorySlugRoute: CategorySlugRoute,
   ToolsSlugRoute: ToolsSlugRoute,
   ToolsIndexRoute: ToolsIndexRoute,
