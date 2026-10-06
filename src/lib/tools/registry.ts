@@ -1,3 +1,4 @@
+import { AI_TOOLS } from "./data/ai";
 import { TEXT_TOOLS } from "./data/text";
 import { DEVELOPER_TOOLS } from "./data/developer";
 import { CALCULATOR_TOOLS, CONVERTER_TOOLS } from "./data/calculators";
@@ -8,6 +9,7 @@ import { CATEGORIES, CATEGORY_BY_ID } from "./categories";
 import type { CategoryId, ToolMeta } from "./types";
 
 const ALL = [
+  ...AI_TOOLS,
   ...TEXT_TOOLS,
   ...DEVELOPER_TOOLS,
   ...CALCULATOR_TOOLS,
