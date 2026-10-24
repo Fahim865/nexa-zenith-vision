@@ -4,11 +4,13 @@ import { Menu, Search, X, Zap } from "lucide-react";
 import { MagneticButton } from "./motion-primitives";
 import { CommandPalette, useCommandPalette } from "@/components/tools/CommandPalette";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
 
 const LINKS = [
   { label: "Tools", to: "/tools" as const },
+  { label: "AI", to: "/ai" as const },
   { label: "Categories", to: "/categories" as const },
-  { label: "Credits", to: "/dashboard" as const },
+  { label: "Dashboard", to: "/dashboard" as const },
 ];
 
 const ANCHORS = [
@@ -38,7 +40,8 @@ export function NexaLogo({ className }: { className?: string }) {
   );
 }
 
-export function Navbar({ credits = 100 }: { credits?: number }) {
+export function Navbar(_props: { credits?: number } = {}) {
+  const { user, credits } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const palette = useCommandPalette();
@@ -94,11 +97,16 @@ export function Navbar({ credits = 100 }: { credits?: number }) {
 
             <div className="hidden items-center gap-2 rounded-full border border-border/70 bg-surface/60 px-3 py-1.5 sm:flex">
               <Zap size={13} className="text-secondary" />
-              <span className="tabular font-display text-sm">{credits}</span>
-              <span className="text-xs text-muted-foreground">/100 today</span>
+              <span className="tabular font-display text-sm">{user ? (credits ?? "—") : "50"}</span>
+              <span className="text-xs text-muted-foreground">{user ? "credits" : "free credits"}</span>
             </div>
 
-            <Link to="/tools" className="hidden sm:block">
+            {!user ? (
+              <Link to="/auth" className="hidden text-sm text-muted-foreground hover:text-foreground sm:block">
+                Sign in
+              </Link>
+            ) : null}
+            <Link to={user ? "/ai" : "/tools"} className="hidden sm:block">
               <MagneticButton
                 className="rounded-full px-4 py-2 text-sm font-medium text-primary-foreground"
                 style={{
@@ -106,7 +114,7 @@ export function Navbar({ credits = 100 }: { credits?: number }) {
                   boxShadow: "var(--glow-primary)",
                 }}
               >
-                Open Tools
+                {user ? "Open AI" : "Open Tools"}
               </MagneticButton>
             </Link>
 

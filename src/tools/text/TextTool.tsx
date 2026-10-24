@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { RotateCcw } from "lucide-react";
+import { Download, RotateCcw } from "lucide-react";
 import {
   Button,
   CopyButton,
@@ -94,6 +94,23 @@ export default function TextTool({ tool }: { tool: ToolMeta }) {
 
         <div className="flex flex-wrap gap-2">
           {!stats ? <CopyButton value={output} label="Copy result" /> : <CopyButton value={input} label="Copy text" />}
+          {!stats && output ? (
+            <Button
+              variant="ghost"
+              onClick={() => {
+                const ext = tool.slug.startsWith("json") ? "json" : "txt";
+                const url = URL.createObjectURL(new Blob([output], { type: ext === "json" ? "application/json" : "text/plain" }));
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `nexa-${tool.slug}.${ext}`;
+                a.click();
+                URL.revokeObjectURL(url);
+              }}
+            >
+              <Download size={15} />
+              Download
+            </Button>
+          ) : null}
           <Button
             variant="ghost"
             onClick={() => {
