@@ -9,6 +9,8 @@ import { CATEGORY_BY_ID } from "@/lib/tools/categories";
 import { getTool, relatedTools } from "@/lib/tools/registry";
 import { getToolComponent } from "@/lib/tools/loader";
 
+const SITE_URL = "https://project--11775231-656a-4186-9fab-ddb90377dce0.lovable.app";
+
 export const Route = createFileRoute("/tools/$slug")({
   loader: ({ params }) => {
     const tool = getTool(params.slug);
@@ -27,10 +29,15 @@ export const Route = createFileRoute("/tools/$slug")({
         { property: "og:title", content: tool.seoTitle },
         { property: "og:description", content: tool.seoDescription },
         { property: "og:type", content: "website" },
-        { property: "og:url", content: `/tools/${tool.slug}` },
+        { property: "og:url", content: `${SITE_URL}/tools/${tool.slug}` },
+        { property: "og:site_name", content: "NEXA" },
+        { name: "twitter:title", content: tool.seoTitle },
+        { name: "twitter:description", content: tool.seoDescription },
+        { name: "keywords", content: tool.tags.join(", ") },
+        ...(tool.status === "soon" ? [{ name: "robots", content: "noindex, follow" }] : []),
         { name: "twitter:card", content: "summary_large_image" },
       ],
-      links: [{ rel: "canonical", href: `/tools/${tool.slug}` }],
+      links: [{ rel: "canonical", href: `${SITE_URL}/tools/${tool.slug}` }],
       scripts: [
         {
           type: "application/ld+json",
@@ -41,9 +48,20 @@ export const Route = createFileRoute("/tools/$slug")({
             applicationCategory: "UtilitiesApplication",
             operatingSystem: "Any",
             description: tool.seoDescription,
+            url: `${SITE_URL}/tools/${tool.slug}`,
             offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
           }),
         },
+        ...(tool.faq?.length
+          ? [{
+              type: "application/ld+json",
+              children: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: tool.faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+              }),
+            }]
+          : []),
       ],
     };
   },
@@ -90,6 +108,13 @@ function ToolPage() {
               <StatusBadge status={tool.status} />
             </div>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{tool.description}</p>
+            <p className="mt-2 text-xs text-muted-foreground">
+              {tool.credits > 0 ? (
+                <><span className="text-secondary">{tool.credits} credits per run</span> · runs on NEXA's AI servers</>
+              ) : (
+                <><span className="text-primary">Free · 0 credits</span> · runs privately on your device, files never leave your browser</>
+              )}
+            </p>
           </div>
         </header>
 
@@ -121,6 +146,22 @@ function ToolPage() {
               </li>
             ))}
           </ul>
+        ) : null}
+
+        {tool.about || tool.faq?.length ? (
+          <section className="mt-12 max-w-3xl">
+            {tool.about ? <p className="text-sm leading-relaxed text-muted-foreground">{tool.about}</p> : null}
+            {tool.faq?.length ? (
+              <dl className="mt-6 space-y-4">
+                {tool.faq.map((f) => (
+                  <div key={f.q}>
+                    <dt className="font-display text-sm">{f.q}</dt>
+                    <dd className="mt-1 text-sm text-muted-foreground">{f.a}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : null}
+          </section>
         ) : null}
 
         {related.length ? (
