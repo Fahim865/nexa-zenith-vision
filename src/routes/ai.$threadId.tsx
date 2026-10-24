@@ -86,7 +86,10 @@ function ChatWindow({ id, initial }: { id: string; initial: UIMessage[] }) {
           onSubmit={(msg) => {
             const t = msg.text?.trim();
             if (!t || busy) return;
-            if (noCredits) return toast.error("You're out of credits. Upgrade to keep chatting.");
+            if (noCredits) {
+              toast.error("You're out of credits. Upgrade to keep chatting.");
+              return;
+            }
             sendMessage({ text: t });
             setText("");
           }}

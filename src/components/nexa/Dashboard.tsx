@@ -78,7 +78,7 @@ export function Dashboard() {
   const max = Math.max(1, ...usage);
   const spent = list.reduce((a, r) => a + r.credits, 0);
   const recentTools = useMemo(
-    () => [...new Set(list.map((r) => r.tool_slug))].map((s) => getTool(s)).filter(Boolean).slice(0, 6),
+    () => [...new Set(list.map((r) => r.tool_slug))].map((s) => getTool(s)).filter((t): t is NonNullable<typeof t> => !!t).slice(0, 6),
     [list],
   );
   const left = credits ?? 0;
@@ -189,9 +189,9 @@ export function Dashboard() {
                 <p className="text-sm text-muted-foreground">Recent tools</p>
                 <div className="mt-3 space-y-2">
                   {recentTools.length ? recentTools.map((t) => (
-                    <Link key={t!.slug} to="/tools/$slug" params={{ slug: t!.slug }} className="group flex items-center gap-3 rounded-xl border border-border/60 p-2.5 hover:border-primary/40">
+                    <Link key={t.slug} to="/tools/$slug" params={{ slug: t.slug }} className="group flex items-center gap-3 rounded-xl border border-border/60 p-2.5 hover:border-primary/40">
                       <t.icon size={15} className="text-primary" />
-                      <span className="flex-1 truncate text-sm">{t!.name}</span>
+                      <span className="flex-1 truncate text-sm">{t.name}</span>
                       <ArrowUpRight size={13} className="text-muted-foreground" />
                     </Link>
                   )) : <p className="text-xs text-muted-foreground">Tools you use appear here.</p>}
