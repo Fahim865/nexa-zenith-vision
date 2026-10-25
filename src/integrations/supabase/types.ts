@@ -95,6 +95,33 @@ export type Database = {
         }
         Relationships: []
       }
+      tool_requests: {
+        Row: {
+          created_at: string
+          details: string | null
+          email: string | null
+          id: string
+          tool_name: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          details?: string | null
+          email?: string | null
+          id?: string
+          tool_name: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          details?: string | null
+          email?: string | null
+          id?: string
+          tool_name?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
