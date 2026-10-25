@@ -14,6 +14,8 @@ import { Route as AiRouteImport } from './routes/ai'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CategoriesRouteImport } from './routes/categories'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as AiIndexRouteImport } from './routes/ai.index'
 import { Route as AiThreadIdRouteImport } from './routes/ai.$threadId'
 import { Route as ApiAiToolRouteImport } from './routes/api/ai-tool'
@@ -45,6 +47,16 @@ const CategoriesRoute = CategoriesRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AiIndexRoute = AiIndexRouteImport.update({
@@ -89,6 +101,8 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/categories': typeof CategoriesRoute
   '/dashboard': typeof DashboardRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/ai/$threadId': typeof AiThreadIdRoute
   '/api/ai-tool': typeof ApiAiToolRoute
   '/api/chat': typeof ApiChatRoute
@@ -102,6 +116,8 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/categories': typeof CategoriesRoute
   '/dashboard': typeof DashboardRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/ai/$threadId': typeof AiThreadIdRoute
   '/api/ai-tool': typeof ApiAiToolRoute
   '/api/chat': typeof ApiChatRoute
@@ -117,6 +133,8 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/categories': typeof CategoriesRoute
   '/dashboard': typeof DashboardRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/ai/$threadId': typeof AiThreadIdRoute
   '/api/ai-tool': typeof ApiAiToolRoute
   '/api/chat': typeof ApiChatRoute
@@ -133,6 +151,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/categories'
     | '/dashboard'
+    | '/privacy'
+    | '/terms'
     | '/ai/$threadId'
     | '/api/ai-tool'
     | '/api/chat'
@@ -146,6 +166,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/categories'
     | '/dashboard'
+    | '/privacy'
+    | '/terms'
     | '/ai/$threadId'
     | '/api/ai-tool'
     | '/api/chat'
@@ -160,6 +182,8 @@ export interface FileRouteTypes {
     | '/auth'
     | '/categories'
     | '/dashboard'
+    | '/privacy'
+    | '/terms'
     | '/ai/$threadId'
     | '/api/ai-tool'
     | '/api/chat'
@@ -175,6 +199,8 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   CategoriesRoute: typeof CategoriesRoute
   DashboardRoute: typeof DashboardRoute
+  PrivacyRoute: typeof PrivacyRoute
+  TermsRoute: typeof TermsRoute
   ApiAiToolRoute: typeof ApiAiToolRoute
   ApiChatRoute: typeof ApiChatRoute
   CategorySlugRoute: typeof CategorySlugRoute
@@ -217,6 +243,20 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ai/': {
@@ -289,6 +329,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   CategoriesRoute: CategoriesRoute,
   DashboardRoute: DashboardRoute,
+  PrivacyRoute: PrivacyRoute,
+  TermsRoute: TermsRoute,
   ApiAiToolRoute: ApiAiToolRoute,
   ApiChatRoute: ApiChatRoute,
   CategorySlugRoute: CategorySlugRoute,

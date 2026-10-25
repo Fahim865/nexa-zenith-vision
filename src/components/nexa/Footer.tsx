@@ -1,4 +1,5 @@
-import { NexaLogo } from "./Navbar";
+import { NexaLogo, ToolRequestFooterButton } from "./Navbar";
+import { ToolRequestButton } from "@/components/tools/ToolRequest";
 
 export function Footer() {
   return (
@@ -20,6 +21,13 @@ export function Footer() {
           <a href="/#about" className="transition-colors hover:text-foreground">
             About
           </a>
+          <ToolRequestButton className="transition-colors hover:text-foreground" />
+          <Link to="/privacy" className="transition-colors hover:text-foreground">
+            Privacy
+          </Link>
+          <Link to="/terms" className="transition-colors hover:text-foreground">
+            Terms
+          </Link>
         </nav>
       </div>
       <div className="border-t border-border/60 py-5 text-center text-xs text-muted-foreground">
